@@ -1,71 +1,53 @@
 package placement;
+import java.util.*;
 
-class CircularQueue {
-    private int[] queue;
-    private int front;
-    private int rear;
-    private int size;
-    private int capacity;
+public class RouteBus {
 
-    public CircularQueue(int capacity) {
-        this.capacity = capacity;
-        this.queue = new int[capacity];
-        this.front = 0;
-        this.rear = -1;
-        this.size = 0;
+    static String[] busStops = {"TH","GA","IC","HA","TE","LU","NI","CA"};
+    static int[] path = {800,600,750,900,1400,1200,1100,1500};
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String source = sc.nextLine().toUpperCase();
+        String destination = sc.nextLine().toUpperCase();
+
+        double fare = getFare(source, destination);
+
+        if(fare == -1)
+            System.out.println("INVALID OUTPUT");
+        else
+            System.out.println(fare + " INR");
     }
 
-    public void enqueue(int value) {
-        if (isFull()) {
-            throw new RuntimeException("Queue is full");
+    public static double getFare(String source, String destination) {
+
+        if(source.equals(destination))
+            return -1;
+
+        int srcIndex = -1;
+        int destIndex = -1;
+
+        for(int i=0;i<busStops.length;i++){
+            if(busStops[i].equals(source))
+                srcIndex = i;
+
+            if(busStops[i].equals(destination))
+                destIndex = i;
         }
 
-        rear = (rear + 1) % capacity;
-        queue[rear] = value;
-        size++;
-    }
-    
-    public int dequeue() {
-        if (isEmpty()) {
-            throw new RuntimeException("Queue is empty");
+        if(srcIndex == -1 || destIndex == -1)
+            return -1;
+
+        int distance = 0;
+        int i = srcIndex;
+
+        while(i != destIndex){
+            distance += path[i];
+            i = (i + 1) % busStops.length;
         }
-
-        int value = queue[front];
-        front = (front + 1) % capacity;
-        size--;
-
-        return value;
-    }
-
-    public int peek() {
-        if (isEmpty()) {
-            throw new RuntimeException("Queue is empty");
-        }
-
-        return queue[front];
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public boolean isFull() {
-       return size == capacity;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public void display() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty");
-            return;
-        }
-
-        for (int i = 0; i < size; i++) {
-            System.out.print(queue[(front + i) % capacity] + " ");
-        }
-        System.out.println();
+        double fare = Math.ceil((distance / 1000.0) * 5);
+        return fare;
     }
 }
