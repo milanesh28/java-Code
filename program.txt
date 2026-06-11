@@ -1,53 +1,26 @@
 package placement;
 import java.util.*;
 
-public class RouteBus {
-
-    static String[] busStops = {"TH","GA","IC","HA","TE","LU","NI","CA"};
-    static int[] path = {800,600,750,900,1400,1200,1100,1500};
-
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        String source = sc.nextLine().toUpperCase();
-        String destination = sc.nextLine().toUpperCase();
-
-        double fare = getFare(source, destination);
-
-        if(fare == -1)
-            System.out.println("INVALID OUTPUT");
-        else
-            System.out.println(fare + " INR");
-    }
-
-    public static double getFare(String source, String destination) {
-
-        if(source.equals(destination))
-            return -1;
-
-        int srcIndex = -1;
-        int destIndex = -1;
-
-        for(int i=0;i<busStops.length;i++){
-            if(busStops[i].equals(source))
-                srcIndex = i;
-
-            if(busStops[i].equals(destination))
-                destIndex = i;
-        }
-
-        if(srcIndex == -1 || destIndex == -1)
-            return -1;
-
-        int distance = 0;
-        int i = srcIndex;
-
-        while(i != destIndex){
-            distance += path[i];
-            i = (i + 1) % busStops.length;
-        }
-        double fare = Math.ceil((distance / 1000.0) * 5);
-        return fare;
-    }
-}
+ public class  CountOfElements {
+     public static void main(String[] args) {
+         Scanner sc = new Scanner(System.in);
+         
+         int n = sc.nextInt();
+         int[] arr = new int[n];
+         
+         for(int i=0;i<n;i++)
+             arr[i] = sc.nextInt();
+         
+         int count = 1;
+         int max = arr[0];
+         
+         for(int i=1;i<n;i++){
+             if(arr[i] > max){
+                 count++;
+                 max = arr[i];
+             }
+         }
+         
+         System.out.println(count);
+     }
+ }
