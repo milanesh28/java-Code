@@ -1,0 +1,17 @@
+package placement;
+import java.util.*;
+
+public class PositionInString  {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+
+        int star = 0, hash = 0;
+
+        for(char c : s.toCharArray()){
+            if(c == '*') star++;
+            else if(c == '#') hash++;
+        }
+        System.out.println(star - hash);
+    }
+}
