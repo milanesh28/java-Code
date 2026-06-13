@@ -1,0 +1,73 @@
+package placement;
+
+class Queue {
+    private int[] arr;
+    private int front;
+    private int rear;
+    private int capacity;
+
+    public Queue(int size) {
+        arr = new int[size];
+        capacity = size;
+        front = 0;
+        rear = -1;
+        }
+
+    public boolean isFull() {
+         return rear == capacity - 1;
+    }
+
+    public boolean isEmpty() {
+        return front > rear;
+    }
+
+    public void enqueue(int data) {
+        if (isFull()) {
+            System.out.println("Queue Overflow");
+            return;
+        }
+        arr[++rear] = data;
+        System.out.println(data + " inserted");
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue Underflow");
+            return -1;
+        }
+        return arr[front++];
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+        return arr[front];
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        for (int i = front; i <= rear; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        Queue q = new Queue(5);
+
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+
+        q.display();
+
+        System.out.println("Dequeued: " + q.dequeue());
+        System.out.println("Front element: " + q.peek());
+        q.display();
+    }
+}
