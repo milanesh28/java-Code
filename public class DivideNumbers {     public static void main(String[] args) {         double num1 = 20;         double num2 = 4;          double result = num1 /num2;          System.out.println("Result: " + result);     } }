@@ -1,0 +1,10 @@
+public class DivideNumbers {
+    public static void main(String[] args) {
+        double num1 = 20;
+        double num2 = 4;
+
+        double result = num1 / num2;
+
+        System.out.println("Result: " + result);
+    }
+}
